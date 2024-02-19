@@ -4,16 +4,15 @@ using namespace std;
 
 #define size 100
 
-
-
-void random_init_matrix(int matrix[size][size], int max, int min);
-string convert_matrix_to_string(int matrix[size][size]);
+void random_init_matrix(int matrix[size][size], int max, int min,
+						int classes, int students);
+string convert_matrix_to_string(int matrix[size][size], int classes, int students);
 
 
 int main() {
 	int max = 10, min = 0;
 
-	int vertically, horizontally;
+	int classes, students;
 
 	int matrix[size][size];
 
@@ -21,14 +20,13 @@ int main() {
 		system("cls");
 		cout << "Input the number of students in the classes" <<
 				"and the number of classes: ";
-		cin >> horizontally >> vertically;
-	} while (horizontally <= 0 || horizontally > size ||
-			 vertically <= 0 || vertically > size);
+		cin >> students >> classes;
+	} while (students <= 0 || students > size ||
+		classes <= 0 || classes > size);
 
-	random_init_matrix(matrix, max, min);
+	random_init_matrix(matrix, max, min, classes, students);
 
-	cout << convert_matrix_to_string(matrix) << endl;
-
+	cout << convert_matrix_to_string(matrix, classes, students) << endl;
 
 	return 0;
 }
