@@ -35,14 +35,14 @@ string finding_the_max_group_highest_marks(int matrix[size][size], int classes, 
 			}
 		}
 		if (max_count = count) {
-			group += to_string(i + 1);
+			group += to_string(i + 1) + " ";
 		}
 	}
 
 	return group;
 }
 
-string finding_the_max_group_lowest_marks(int matrix[size][size], int classes, int students) {
+string finding__group_lowest_marks(int matrix[size][size], int classes, int students) {
 	if (students <= 0 || students > size ||
 		classes <= 0 || classes > size) {
 		return "Incorrect data was entered";
@@ -54,7 +54,7 @@ string finding_the_max_group_lowest_marks(int matrix[size][size], int classes, i
 		int count = 0;
 		for (int j = 0; j < students; j++) {
 			if (matrix[i][j] >= 0 && matrix[i][j] <= 3) {
-				group += to_string(i + 1);
+				group += to_string(i + 1) + " ";
 				break;
 			}
 		}
@@ -107,39 +107,36 @@ void groups_with_the_highest_average_performance(int matrix[size][size],
 
 void sorting_groups_by_average_performance(int matrix[size][size],
 										   int classes, int students) {
+
 	if (students <= 0 || students > size ||
 		classes <= 0 || classes > size) {
 		return;
 	}
 
-	int group[size];
+	bool flag = true;
 
-	for (int i = 0; i < classes; i++) {
-		int average_performance = 0;
-		bool flag = true;
-		for (int j = 0; j < students; j++) {
-			average_performance += matrix[i][j];
-		}
-		average_performance /= students;
-
-		int overall_average_performance = 0;
-		for (int k = 0; k < classes; k++) {
-			if (k == i) {
-				continue;
+	while (flag) {
+		flag = false;
+		for (int i = 0; i < classes; i++) {
+			int average_performance = 0;
+			for (int j = 0; j < students; j++) {
+				average_performance += matrix[i][j];
 			}
-			for (int l = 0; l < students; l++) {
-				overall_average_performance += matrix[k][l];
-			}
-		}
-		overall_average_performance /= (students * classes);
-		if (overall_average_performance > average_performance) {
-			flag = false;
-		}
-		if (flag) {
+			average_performance /= students;
 
-			for (int h = 0; h < students; h++) {
-				if (matrix[i][h] <= 9) {
-					matrix[i][h] += 1;
+			for (int k = i + 1; k < classes; k++) {
+				int another_average_performance = 0;
+				for (int l = 0; l < students; l++) {
+					average_performance += matrix[k][l];
+				}
+				another_average_performance /= students;
+				if (average_performance < another_average_performance) {
+					flag = true;
+					for (int h = 0; h < students; h++) {
+						int t = matrix[i][h];
+						matrix[i][h] = matrix[k][h];
+						matrix[k][h] = t;
+					}
 				}
 			}
 		}
