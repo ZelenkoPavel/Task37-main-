@@ -104,6 +104,17 @@ void groups_with_the_highest_average_performance(int matrix[size][size],
 
 	return;
 }
+//
+void exchange(int matrix[size][size], int students, int index) {
+
+	for (int i = 0; i < students; i++) {
+		int t = matrix[index][i];
+		matrix[index][i] = matrix[index + 1][i];
+		matrix[index + 1][i] = t;
+	}
+}
+//
+
 
 void sorting_groups_by_average_performance(int matrix[size][size],
 										   int classes, int students) {
@@ -117,27 +128,24 @@ void sorting_groups_by_average_performance(int matrix[size][size],
 
 	while (flag) {
 		flag = false;
-		for (int i = 0; i < classes; i++) {
-			int average_performance = 0;
+		for (int i = 0; i < classes - 1; i++) {
+			int first_average_performance = 0;
 			for (int j = 0; j < students; j++) {
-				average_performance += matrix[i][j];
+				first_average_performance += matrix[i][j];
 			}
-			average_performance /= students;
+			first_average_performance /= students;
 
-			for (int k = i + 1; k < classes; k++) {
-				int another_average_performance = 0;
-				for (int l = 0; l < students; l++) {
-					average_performance += matrix[k][l];
-				}
-				another_average_performance /= students;
-				if (average_performance < another_average_performance) {
-					flag = true;
-					for (int h = 0; h < students; h++) {
-						int t = matrix[i][h];
-						matrix[i][h] = matrix[k][h];
-						matrix[k][h] = t;
-					}
-				}
+			int second_average_performance = 0;
+			for (int k = 0; k < students; k++)
+			{
+				second_average_performance += matrix[i + 1][k];
+			}
+			second_average_performance /= students;
+
+
+			if (first_average_performance > second_average_performance) {
+				flag = true;
+				exchange(matrix, students, i);
 			}
 		}
 	}

@@ -38,7 +38,7 @@ int main() {
 			"2.Finding group lowest marks;\n" <<
 			"3.Increase grades by one point for students in\n" <<
 			"groups with the highest average performance;\n" <<
-			"4.sorting groups by average performance;\n" <<
+			"4.Sorting groups by average performance;\n" <<
 			"0.Exit." << endl;
 		cin >> choice;
 
